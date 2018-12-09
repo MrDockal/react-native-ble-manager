@@ -12,10 +12,18 @@ import { CharacteristicProperties } from './Model/CharacteristicProperties';
 import { ManufacturerData } from './Model/ManufacturerData';
 import { Service } from './Model/Service';
 import { ConnectedPeripheral } from './Model/ConnectedPeripheral';
+import { BleManagerDiscoverPeripheral } from './Model/BleManagerDiscoverPeripheral';
+import { BleManagerDidUpdateValueForCharacteristic } from './Model/BleManagerDidUpdateValueForCharacteristic';
+import { BleManagerConnectPeripheral } from './Model/BleManagerConnectPeripheral';
+import { BleManagerDisconnectPeripheral } from './Model/BleManagerDisconnectPeripheral';
 const bleManager = NativeModules.BleManager;
 
 export {
 	Advertising,
+	BleManagerConnectPeripheral,
+	BleManagerDidUpdateValueForCharacteristic,
+	BleManagerDisconnectPeripheral,
+	BleManagerDiscoverPeripheral,
 	BondedPeripheral,
 	ConnectionPriority,
 	DiscoveredPeripheral,
