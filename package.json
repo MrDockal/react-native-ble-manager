@@ -24,6 +24,12 @@
     "name": "Innove",
     "url": "https://github.com/innoveit"
   },
+  "files": [
+    "/android",
+    "/dist",
+    "/ios",
+    "/ISSUE_TEMPLATE.md"
+  ],
   "scripts": {
     "version": "git add -A",
     "postversion": "git push && git push --tags",
