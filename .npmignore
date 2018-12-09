@@ -17,4 +17,5 @@ gradlew
 /ios/**/*xcuserdata*
 /ios/**/*xcshareddata*
 *.log
-!dist
+!dist/**/*
+src
