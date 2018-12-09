@@ -1,50 +1,37 @@
 import { NativeModules } from 'react-native';
+import { PeripheralInfo } from './Model/PeripheralInfo';
+import { StartOptions } from './Model/StartOptions';
+import { ScanningOptions } from './Model/ScanningOptions';
+import { BondedPeripheral } from './Model/BondedPeripheral';
+import { ConnectionPriority } from './Model/ConnectionPriority';
+import { DiscoveredPeripheral } from './Model/DiscoveredPeripheral';
+import { Advertising } from './Model/Advertising';
+import { Characteristic } from './Model/Characteristic';
+import { CharacteristicDescriptor } from './Model/CharacteristicDescriptor';
+import { CharacteristicProperties } from './Model/CharacteristicProperties';
+import { ManufacturerData } from './Model/ManufacturerData';
+import { Service } from './Model/Service';
+import { ConnectedPeripheral } from './Model/ConnectedPeripheral';
 const bleManager = NativeModules.BleManager;
 
-export interface RSSI {
-
-}
-
-export interface PeripheralInfo {
-
-}
-
-export interface ConnectedPeripheral {
-	id: string;
-}
-
-export interface DiscoveredPeripheral {
-
-}
-
-
-export interface StartOptions {
-	showAlert?: boolean;
-	restoreIdentifierKey?: string;
-	forceLegacy?: string;
-}
-
-export interface ScanningOptions {
-	numberOfMatches?: number;
-	matchMode?: number;
-	scanMode?: number;
-}
-
-export interface BondedPeripheral {
-	rssi: number;
-	id: string;
-	name: string;
-}
-
-export enum ConnectionPriority {
-	BALANCED = 0,
-	HIGH = 1,
-	LOW = 2,
+export {
+	Advertising,
+	BondedPeripheral,
+	ConnectionPriority,
+	DiscoveredPeripheral,
+	Characteristic,
+	CharacteristicDescriptor,
+	CharacteristicProperties,
+	ManufacturerData,
+	PeripheralInfo,
+	ScanningOptions,
+	Service,
+	StartOptions,
 }
 
 export class BleManager {
 	public read(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
-		return new Promise((fulfill: (data: ArrayBuffer) => void, reject: (error: Error) => void) => {
+		return new Promise((fulfill: (data: number[]) => void, reject: (error: Error) => void) => {
 			bleManager.read(peripheralId, serviceUUID, characteristicUUID, (error: Error, data: any) => {
 				if (error) {
 					reject(error);
@@ -56,8 +43,8 @@ export class BleManager {
 	}
 
 	public readRSSI(peripheralId: string) {
-		return new Promise((fulfill: (data: RSSI) => void, reject: (error: Error) => void) => {
-			bleManager.readRSSI(peripheralId, (error: Error, rssi: RSSI) => {
+		return new Promise((fulfill: (data: number) => void, reject: (error: Error) => void) => {
+			bleManager.readRSSI(peripheralId, (error: Error, rssi: number) => {
 				if (error) {
 					reject(error);
 				} else {
