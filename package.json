@@ -25,10 +25,10 @@
     "url": "https://github.com/innoveit"
   },
   "files": [
-    "/android",
-    "/dist",
-    "/ios",
-    "/ISSUE_TEMPLATE.md"
+    "android",
+    "dist",
+    "ios",
+    "ISSUE_TEMPLATE.md"
   ],
   "scripts": {
     "version": "git add -A",
@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "@types/react-native": "^0.57.13",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.2"
   }
 }

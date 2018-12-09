@@ -18,27 +18,26 @@ import { BleManagerConnectPeripheral } from './Model/BleManagerConnectPeripheral
 import { BleManagerDisconnectPeripheral } from './Model/BleManagerDisconnectPeripheral';
 const bleManager = NativeModules.BleManager;
 
-export {
-	Advertising,
-	BleManagerConnectPeripheral,
-	BleManagerDidUpdateValueForCharacteristic,
-	BleManagerDisconnectPeripheral,
-	BleManagerDiscoverPeripheral,
-	BondedPeripheral,
-	ConnectionPriority,
-	DiscoveredPeripheral,
-	Characteristic,
-	CharacteristicDescriptor,
-	CharacteristicProperties,
-	ManufacturerData,
-	PeripheralInfo,
-	ScanningOptions,
-	Service,
-	StartOptions,
-}
+export module BleManager {
 
-export class BleManager {
-	public read(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
+	export type IAdvertising = Advertising;
+	export type IBleManagerConnectPeripheral = BleManagerConnectPeripheral;
+	export type IBleManagerDidUpdateValueForCharacteristic = BleManagerDidUpdateValueForCharacteristic;
+	export type IBleManagerDisconnectPeripheral = BleManagerDisconnectPeripheral;
+	export type IBleManagerDiscoverPeripheral = BleManagerDiscoverPeripheral;
+	export type IBondedPeripheral = BondedPeripheral;
+	export type IConnectionPriority = ConnectionPriority;
+	export type IDiscoveredPeripheral = DiscoveredPeripheral;
+	export type ICharacteristic = Characteristic;
+	export type ICharacteristicDescriptor = CharacteristicDescriptor;
+	export type ICharacteristicProperties = CharacteristicProperties;
+	export type IManufacturerData = ManufacturerData;
+	export type IPeripheralInfo = PeripheralInfo;
+	export type IScanningOptions = ScanningOptions;
+	export type IService = Service;
+	export type IStartOptions = StartOptions;
+
+	export function read(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
 		return new Promise((fulfill: (data: number[]) => void, reject: (error: Error) => void) => {
 			bleManager.read(peripheralId, serviceUUID, characteristicUUID, (error: Error, data: any) => {
 				if (error) {
@@ -50,7 +49,7 @@ export class BleManager {
 		});
 	}
 
-	public readRSSI(peripheralId: string) {
+	export function readRSSI(peripheralId: string) {
 		return new Promise((fulfill: (data: number) => void, reject: (error: Error) => void) => {
 			bleManager.readRSSI(peripheralId, (error: Error, rssi: number) => {
 				if (error) {
@@ -62,7 +61,7 @@ export class BleManager {
 		});
 	}
 
-	public refreshCache(peripheralId: string) {
+	export function refreshCache(peripheralId: string) {
 		return new Promise((fulfill: (data: PeripheralInfo) => void, reject: (error: Error) => void) => {
 			bleManager.refreshCache(peripheralId, (error: Error, result: PeripheralInfo) => {
 				if (error) {
@@ -74,8 +73,9 @@ export class BleManager {
 		});
 	}
 
-	public retrieveServices(peripheralId: string, services: string[]) {
+	export function retrieveServices(peripheralId: string, services: string[]) {
 		return new Promise((fulfill: (data: PeripheralInfo) => void, reject: (error: Error) => void) => {
+			console.log('retrieveServices', peripheralId, services);
 			bleManager.retrieveServices(peripheralId, services, (error: Error, peripheral: PeripheralInfo) => {
 				if (error) {
 					reject(error);
@@ -86,7 +86,7 @@ export class BleManager {
 		});
 	}
 
-	public write(peripheralId: string, serviceUUID: string, characteristicUUID: string, data: number[], maxByteSize?: number) {
+	export function write(peripheralId: string, serviceUUID: string, characteristicUUID: string, data: number[], maxByteSize?: number) {
 		if (maxByteSize == null) {
 			maxByteSize = 20;
 		}
@@ -101,7 +101,7 @@ export class BleManager {
 		});
 	}
 
-	public writeWithoutResponse(peripheralId: string, serviceUUID: string, characteristicUUID: string, data: number[], maxByteSize?: number, queueSleepTime?: number) {
+	export function writeWithoutResponse(peripheralId: string, serviceUUID: string, characteristicUUID: string, data: number[], maxByteSize?: number, queueSleepTime?: number) {
 		if (maxByteSize == null) {
 			maxByteSize = 20;
 		}
@@ -119,7 +119,7 @@ export class BleManager {
 		});
 	}
 
-	public connect(peripheralId: string) {
+	export function connect(peripheralId: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.connect(peripheralId, (error: Error) => {
 				if (error) {
@@ -131,7 +131,7 @@ export class BleManager {
 		});
 	}
 
-	public createBond(peripheralId: string) {
+	export function createBond(peripheralId: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.createBond(peripheralId, (error: Error) => {
 				if (error) {
@@ -143,7 +143,7 @@ export class BleManager {
 		});
 	}
 
-	public removeBond(peripheralId: string) {
+	export function removeBond(peripheralId: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.removeBond(peripheralId, (error: Error) => {
 				if (error) {
@@ -155,7 +155,7 @@ export class BleManager {
 		});
 	}
 
-	public disconnect(peripheralId: string) {
+	export function disconnect(peripheralId: string) {
 		return new Promise((fulfill, reject) => {
 			bleManager.disconnect(peripheralId, (error: Error) => {
 				if (error) {
@@ -167,7 +167,7 @@ export class BleManager {
 		});
 	}
 
-	public startNotification(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
+	export function startNotification(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.startNotification(peripheralId, serviceUUID, characteristicUUID, (error: Error) => {
 				if (error) {
@@ -179,7 +179,7 @@ export class BleManager {
 		});
 	}
 
-	public stopNotification(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
+	export function stopNotification(peripheralId: string, serviceUUID: string, characteristicUUID: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.stopNotification(peripheralId, serviceUUID, characteristicUUID, (error: Error) => {
 				if (error) {
@@ -191,11 +191,11 @@ export class BleManager {
 		});
 	}
 
-	public checkState(): void {
+	export function checkState(): void {
 		bleManager.checkState();
 	}
 
-	start(options?: StartOptions) {
+	export function start(options?: StartOptions) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			if (options == null) {
 				options = {};
@@ -210,7 +210,7 @@ export class BleManager {
 		});
 	}
 
-	public scan(serviceUUIDs: string[], seconds: number, allowDuplicates?: boolean, scanningOptions: ScanningOptions = {}) {
+	export function scan(serviceUUIDs: string[], seconds: number, allowDuplicates?: boolean, scanningOptions: ScanningOptions = {}) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			if (allowDuplicates == null) {
 				allowDuplicates = false;
@@ -242,7 +242,7 @@ export class BleManager {
 		});
 	}
 
-	public stopScan() {
+	export function stopScan() {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.stopScan((error: Error) => {
 				if (error != null) {
@@ -254,7 +254,7 @@ export class BleManager {
 		});
 	}
 
-	public enableBluetooth() {
+	export function enableBluetooth() {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.enableBluetooth((error: Error) => {
 				if (error != null) {
@@ -266,7 +266,7 @@ export class BleManager {
 		});
 	}
 
-	public getConnectedPeripherals(serviceUUIDs: string[]) {
+	export function getConnectedPeripherals(serviceUUIDs: string[]) {
 		return new Promise((fulfill: (peripherals: ConnectedPeripheral[]) => void, reject: (error: Error) => void) => {
 			bleManager.getConnectedPeripherals(serviceUUIDs, (error: Error, result: ConnectedPeripheral[]) => {
 				if (error) {
@@ -282,7 +282,7 @@ export class BleManager {
 		});
 	}
 
-	public getBondedPeripherals() {
+	export function getBondedPeripherals() {
 		return new Promise((fulfill: (peripherals: BondedPeripheral[]) => void, reject: (error: Error) => void) => {
 			bleManager.getBondedPeripherals((error: Error, result: BondedPeripheral[]) => {
 				if (error) {
@@ -298,7 +298,7 @@ export class BleManager {
 		});
 	}
 
-	public getDiscoveredPeripherals() {
+	export function getDiscoveredPeripherals() {
 		return new Promise((fulfill: (peripherals: DiscoveredPeripheral[]) => void, reject: (error: Error) => void) => {
 			bleManager.getDiscoveredPeripherals((error: Error, result: DiscoveredPeripheral[]) => {
 				if (error) {
@@ -314,7 +314,7 @@ export class BleManager {
 		});
 	}
 
-	public removePeripheral(peripheralId: string) {
+	export function removePeripheral(peripheralId: string) {
 		return new Promise((fulfill: () => void, reject: (error: Error) => void) => {
 			bleManager.removePeripheral(peripheralId, (error: Error) => {
 				if (error) {
@@ -326,12 +326,12 @@ export class BleManager {
 		});
 	}
 
-	public async isPeripheralConnected(peripheralId: string, serviceUUIDs: string[]) {
-		const connectedPeripherals = await this.getConnectedPeripherals(serviceUUIDs);
+	export async function isPeripheralConnected(peripheralId: string, serviceUUIDs: string[]) {
+		const connectedPeripherals = await getConnectedPeripherals(serviceUUIDs);
 		return connectedPeripherals.findIndex((p: ConnectedPeripheral) => p.id === peripheralId) > -1;
 	}
 
-	public requestConnectionPriority(peripheralId: string, connectionPriority: ConnectionPriority) {
+	export function requestConnectionPriority(peripheralId: string, connectionPriority: ConnectionPriority) {
 		return new Promise((fulfill: (status: number) => void, reject: (error: Error) => void) => {
 			bleManager.requestConnectionPriority(peripheralId, connectionPriority, (error: Error, status: number) => {
 				if (error) {
@@ -343,7 +343,7 @@ export class BleManager {
 		});
 	}
 
-	public requestMTU(peripheralId: string, mtu: number) {
+	export function requestMTU(peripheralId: string, mtu: number) {
 		return new Promise((fulfill: (mtu: number) => void, reject: (error: Error) => void) => {
 			bleManager.requestMTU(peripheralId, mtu, (error: Error, mtu: number) => {
 				if (error) {

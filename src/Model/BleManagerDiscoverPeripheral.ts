@@ -1,3 +1,3 @@
-import { DiscoveredPeripheral } from "../BleManager";
+import { DiscoveredPeripheral } from "./DiscoveredPeripheral";
 
 export interface BleManagerDiscoverPeripheral extends DiscoveredPeripheral {}
